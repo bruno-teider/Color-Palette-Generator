@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./index.css";
 
@@ -21,13 +21,22 @@ function App() {
     } catch (error) {
       console.log("Error: ", error)
     }
+  }
 
-    console.log("Generated Palette: ", palette)
-  };
+  useEffect(() => {
+    getPalette()
+  }, [])
 
   return (
     <div className="App">
-      <button onClick={getPalette}>Generate Random Palette</button>
+
+      <div className="container">
+        {palette.map((color, index) => (
+          <div key={index} style={{ backgroundColor: `rgb(${color.join(",")})`, width: 50, height: 50 }}/>
+        ))}
+      </div>
+
+      <button onClick={getPalette}>Generate Random Palette</button>      
     </div>
   );
 }
