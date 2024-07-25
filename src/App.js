@@ -3,7 +3,7 @@ import axios from "axios";
 import "./index.css";
 
 function App() {
-  const [palette, setPalette] = (useState = []);
+  const [palette, setPalette] = useState([])
 
   const getPalette = async () => {
     const apiUrl = '/api/'
@@ -17,11 +17,12 @@ function App() {
             'Content-Type': 'application/json',
         },
     });
-      console.log(response.data.result)
-      setPalette(response.data.result);
+      setPalette(response.data.result)
     } catch (error) {
-      console.log("Error: ", error);
+      console.log("Error: ", error)
     }
+
+    console.log("Generated Palette: ", palette)
   };
 
   return (
