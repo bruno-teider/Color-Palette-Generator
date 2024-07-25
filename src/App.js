@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./index.css";
 
 function App() {
+  const [palette, setPalette] = (useState = []);
+
+  const getPalette = async () => {
+    const apiUrl = '/api/'
+    const apiModel = {
+      "model": "default"
+    }
+
+    try {
+      const response = await axios.post(apiUrl, apiModel, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+      console.log(response.data.result)
+      setPalette(response.data.result);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={getPalette}>Generate Random Palette</button>
     </div>
   );
 }
