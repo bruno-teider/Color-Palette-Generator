@@ -10,8 +10,11 @@ function App() {
   const [palette, setPalette] = useState([]);
   const [open, setOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [message, setMessage] = useState('')
 
-  const copy = (text) => {
+  // Function for when you copy something
+  const copy = (text, message) => {
+    setMessage(message)
     setOpen(CopyToClipboard(text));
   };
 
@@ -22,25 +25,30 @@ function App() {
     setOpen(false);
   };
 
+  // Func that gets the palette from the API
   const getPalette = async () => {
     setPalette(await GeneratePalette());
   };
 
+  // Generates new palette when starting
   useEffect(() => {
     getPalette();
   }, []);
 
+  // Generating new palette when pressing space
   useKeyPress(" ", getPalette);
 
-  useKeyPress("c", () => copy(palette));
+  // Copying palette when pressing c
+  useKeyPress("c", () => copy(palette, "Palette copied to Clipboard"));
 
   return (
     <div className="App">
+      {/* Snackbar Appears when something is copied */}
       {open && (
         <Snackbar
           open={open}
           autoHideDuration={3000}
-          message={"Palette copied to Clipboard"}
+          message={message}
           onClose={handleClose}
           TransitionComponent={Slide}
           ContentProps={{
@@ -59,17 +67,19 @@ function App() {
       )}
 
       <div className="container">
+        {/* Create a card for each color in the palette */}
         {palette.map((color, index) => (
           <div
             className="color-card"
             style={{
               backgroundColor: `#${color}`,
             }}
+            // For the hover effect
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {hoveredIndex === index && (
-              <div className="show-name">
+              <div className="show-name" onClick={() => copy("#" + color, 'Color copied to Clipboard')}>
                 <h1>#{color}</h1>
               </div>
             )}
