@@ -45,6 +45,7 @@ function App() {
           ContentProps={{
             sx:{
               border: "3px solid #000",
+              color: "white",
               borderRadius: "6px",
               bgcolor: "#ff00f5",
               padding: "10px 12px",
@@ -58,10 +59,19 @@ function App() {
 
       <div className="container">
         {palette.map((color, index) => (
-          <div
-            key={index}
-            style={{ backgroundColor: `#${color}`, width: 150, height: 225 }}
-          />
+          index != 4 ? (
+            <div
+              key={index}
+              className="color-card"
+              style={{ backgroundColor: `#${color}`}}
+            />
+          ) : (
+            <div 
+              key={index} 
+              className="color-card" 
+              style={{backgroundColor: `#${color}`, borderRight: `4px solid #000`}} 
+            />   
+          )
         ))}
       </div>
 
