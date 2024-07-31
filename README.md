@@ -2,11 +2,6 @@
 
 This is a React application that generates a random color palette using the Colormind API and Axios.
 
-- Generation of random color palettes
-- Display of colors as clickable cards
-- Snackbar notifications for copied colors
-- Keyboard shortcuts for generating palettes and copying colors
-
 ![image](https://github.com/user-attachments/assets/30eb4160-a5ca-4ded-a934-5fa5cd16839f)
 
 ## Features
